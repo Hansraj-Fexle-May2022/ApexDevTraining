@@ -24,10 +24,8 @@ public with sharing class RightPascalTriangle
                 {
                     s = s + '_';
                 }
-            }
-                
-            system.debug(s);
-                
+            }               
+            system.debug(s);       
         }
     }
 }
