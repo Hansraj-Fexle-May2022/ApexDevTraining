@@ -1,6 +1,6 @@
 public with sharing class LeftTrianglePascalPatternProgram 
 {
-    public LeftTrianglePascalPatternProgram() 
+    public LeftTrianglePascalPatternProgram(Integer n) 
     {
         Integer var =n;
         String p = ' ';
