@@ -9,8 +9,7 @@ public with sharing class LeftTrianglePascalPatternProgram
           	for(Integer j=i;j<n;j++)
                 {
                     p = p +'_';
-                }
-                
+                }             
             for(Integer k=1;k<i+1;k++)
                 {
                     p = p + '*';
@@ -22,8 +21,7 @@ public with sharing class LeftTrianglePascalPatternProgram
           	for(Integer j=i;j<n+1;j++)
                 {
                     p = p +'_';
-                }
-                
+                }         
             for(Integer k=1;k<i;k++)
                 {
                     p = p + '*';
