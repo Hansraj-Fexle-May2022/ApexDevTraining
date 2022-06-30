@@ -61,7 +61,7 @@ public with sharing class DowntriangleProgram
                     }
                 }
             }
-            System.debug(s);
+        System.debug(s);
     	}
     }
 }
