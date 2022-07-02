@@ -2,7 +2,7 @@ public with sharing class DowntriangleProgram
 {
     public void DowntriangleProgram1()
     {
-        boolean b=true;
+        Boolean b=true;
         for(integer i=1;i<=5;i++)
         {
             string s='  ';
