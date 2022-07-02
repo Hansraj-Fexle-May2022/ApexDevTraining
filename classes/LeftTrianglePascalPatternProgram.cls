@@ -6,7 +6,7 @@ public with sharing class LeftTrianglePascalPatternProgram
         String p = ' ';
         for(Integer i=1; i<n+1; i++)
         {
-          	for(Integer j=i;j<n;j++)
+            for(Integer j=i;j<n;j++)
             {
                 p = p +'_';
             }             
@@ -18,7 +18,7 @@ public with sharing class LeftTrianglePascalPatternProgram
        	System.debug('');
         for(Integer i=n;i>0;i--)
         {
-          	for(Integer j=i;j<n+1;j++)
+            for(Integer j=i;j<n+1;j++)
             {
                 p = p +'_';
             }         
