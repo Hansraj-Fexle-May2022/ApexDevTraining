@@ -5,7 +5,7 @@ public with sharing class ReversedPyramidStarPattern
         for(integer i=1;i<=5;i++)
         {
             string y='  '; 
-            boolean b=true;
+            Boolean b=true;
             for(integer j=1;j<=9;j++) 
             {
                 if(j>=i && j<=10-i && b)
