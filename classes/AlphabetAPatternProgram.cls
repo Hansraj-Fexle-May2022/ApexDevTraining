@@ -3,7 +3,7 @@ public with sharing class AlphabetAPatternProgram
     public AlphabetAPatternProgram()
     {
         integer p=2,q=2;
-        boolean m = true;
+        Boolean m = true;
         for(integer i=1;i<=6;i++)
         {
             string s='  ';
