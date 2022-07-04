@@ -3,7 +3,7 @@ public with sharing class RightPascalTriangle
     public RightPascalTriangle()
     {
         integer k=0;
-        for(integer i=1;i<=10;i++)
+        for(Integer i=1;i<=10;i++)
         {
             if(i<=5)
             {
@@ -13,8 +13,8 @@ public with sharing class RightPascalTriangle
             { 
                 k--;
             }
-            string s='  ';
-            for(integer j=1;j<=5;j++)
+            String s='  ';
+            for(Integer j=1;j<=5;j++)
             {
                 if(j<=k)
                 {
