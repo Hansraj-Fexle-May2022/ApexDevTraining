@@ -2,11 +2,11 @@ public with sharing class ReversedPyramidStarPattern
 {
     public ReversedPyramidStarPattern()
     {
-        for(integer i=1;i<=5;i++)
+        for(Integer i=1;i<=5;i++)
         {
-            string y='  '; 
+            String y='  '; 
             Boolean b=true;
-            for(integer j=1;j<=9;j++) 
+            for(Integer j=1;j<=9;j++) 
             {
                 if(j>=i && j<=10-i && b)
                 {
