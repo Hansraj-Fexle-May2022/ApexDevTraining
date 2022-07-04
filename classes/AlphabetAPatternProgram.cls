@@ -2,16 +2,16 @@ public with sharing class AlphabetAPatternProgram
 {
     public AlphabetAPatternProgram()
     {
-        integer p=2,q=2;
+        Integer p=2,q=2;
         Boolean m = true;
-        for(integer i=1;i<=6;i++)
+        for(Integer i=1;i<=6;i++)
         {
-            string s='  ';
+            String s='  ';
             if(i==2)
             {
                 p--; q++;
             }
-            for(integer j=1;j<=3;j++)
+            for(Integer j=1;j<=3;j++)
             {
                 if((i==2||i>=4) && j==2)
                	{ 
