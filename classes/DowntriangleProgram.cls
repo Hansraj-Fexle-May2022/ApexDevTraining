@@ -3,10 +3,10 @@ public with sharing class DowntriangleProgram
     public void DowntriangleProgram1()
     {
         Boolean b=true;
-        for(integer i=1;i<=5;i++)
+        for(Integer i=1;i<=5;i++)
         {
             string s='  ';
-            for(integer j=1;j<=9;j++)
+            for(Integer j=1;j<=9;j++)
             {
                 if(i>=2 && i<=4)
                 {
@@ -35,6 +35,7 @@ public with sharing class DowntriangleProgram
         system.debug(s);
         }
     }
+    
     public void DowntriangleProgram2()
     {
         for(Integer i=1;i<6;i++)
