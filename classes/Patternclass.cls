@@ -16,9 +16,7 @@ public class Patternclass
                 	s = s + '_';
             	}
             }
-        
-            system.debug(s);
+        system.debug(s);
         }
-    }
-	
+    }	
 }
