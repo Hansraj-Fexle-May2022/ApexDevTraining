@@ -36,11 +36,13 @@ public with sharing class CountryStateDistrictMaps {
         Map<String, Map<String, List<String>>> mapOfAustralia= 
         new Map<String, Map<String, List<String>>>{'Australia' => mapAustralia};   
         Map<String, Map<String, List<String>>> mapOfCountry= 
-        new Map<String, Map<String, List<String>>>{'India'=> mapIndia,'Japan' => mapJapan,'Singapore' => mapSingapore,'Australia' => mapAustralia};
+        new Map<String, Map<String, List<String>>>{'India'=> mapIndia,
+        'Japan' => mapJapan,'Singapore' => mapSingapore,'Australia' => mapAustralia};
 
         //Assigning Map of country according to country code
         Map<Integer, Map<String, Map<String, List<String>>>> mapCountryCode =  
-        new Map<Integer, Map<String, Map<String, List<String>>>>{91=>mapOfIndia,81=>mapOfJapan, 65 => mapOfSingapore, 61 => mapOfAustralia };
+        new Map<Integer, Map<String, Map<String, List<String>>>>{91=>mapOfIndia,
+        81=>mapOfJapan, 65 => mapOfSingapore, 61 => mapOfAustralia };
 
         //1.finding combination of Country, state and districts where it starts with 'A'
         System.debug('Comibinations of Countries, States and Districts which starts with A : ');
