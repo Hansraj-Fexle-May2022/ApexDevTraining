@@ -1,7 +1,7 @@
 public with sharing class CountryStateDistrictMaps {
-        Map<Integer, Map<string, Map<string, List<string>>>> mapcountrycode = new Map<Integer, Map<string, Map<string, List<string>>>>();
-        List<string> listCountry = new List<string>{'India', 'Japan', 'Singapore', 'Australia'};
-        public CountryStateDistrictMaps(){ 
+    Map<Integer, Map<string, Map<string, List<string>>>> mapcountrycode = new Map<Integer, Map<string, Map<string, List<string>>>>();
+    List<string> listCountry = new List<string>{'India', 'Japan', 'Singapore', 'Australia'};
+    public CountryStateDistrictMaps(){ 
         //Lists for India,91
         List<String> districtRajasthan = new List<String>{'Ajmer', 'Jaipur', 'Udaipur', 'Pali','Jodhpur'}; 
         List<String> districtHaryana   =  new List<String>{'Ambala', 'Bhiwani','Faridabad','Fatehabad'};
@@ -31,7 +31,7 @@ public with sharing class CountryStateDistrictMaps {
         //Assigning Map of country according to country code
         Map<Integer, Map<String, Map<String, List<String>>>> mapCountryCode =  new Map<Integer, Map<String, Map<String, List<String>>>>{91=>mapOfIndia,81=>mapOfJapan, 65 => mapOfSingapore, 61 => mapOfAustralia };
 
-        // finding combination of Country, state and districts where it starts with 'A'
+        //1.finding combination of Country, state and districts where it starts with 'A'
         System.debug('Comibinations of Countries, States and Districts which starts with A : ');
         for(String getCountry :  mapOfCountry.keyset()) {
             if(getCountry.startsWithIgnoreCase('A')) {
@@ -59,56 +59,5 @@ public with sharing class CountryStateDistrictMaps {
                 }
             }
         }
-        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
