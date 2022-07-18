@@ -79,10 +79,10 @@ public with sharing class CountryStateDynamicMap {
             wrapperOfState.stateName = stat;
             wrapperOfState.districts = new list<Districts>();
             List<AggregateResult> listAggDistrictWithState = [Select COUNT(Name) Total_Number_Of_Districts from 
-	    						                              District__c WHERE State_Name__r.Country_Name__r.Name LIKE:
+	    						      District__c WHERE State_Name__r.Country_Name__r.Name LIKE:
                                                               countryName GROUP BY State_Name__r.Name];                
             wrapperOfState.Total_Number_Of_Districts = (Integer)listAggDistrictWithState[0].
-	    						                       get('Total_Number_Of_Districts');
+	    					       get('Total_Number_Of_Districts');
             stdata =   wrapperOfState.Total_Number_Of_Districts ;
             for(String dist :mapCountryTillDistricts.get(countryName).get(stat)) {
                 Districts wrapperOfDistrict = new Districts();
@@ -93,7 +93,7 @@ public with sharing class CountryStateDynamicMap {
         }
         String stringOfJSON = JSON.serialize(wrapperOfCountry);
 	    List<Country__c> countryData = [SELECT Id, Name, Country_JSON_Data__c, Total_Number_of_Districts__c,
-                                    Total_Number_of_States__c FROM Country__c WHERE Name = :countryName ];
+                                    	    Total_Number_of_States__c FROM Country__c WHERE Name = :countryName ];
         if(!countryData.isEmpty()) {
             countryData[0].Country_Json_Data__c = stringOfJSON;
             countryData[0].Total_Number_of_States__c = wrapperOfCountry.Total_Number_Of_States;
