@@ -54,7 +54,6 @@ public with sharing class CountryStateDynamicMap {
         public List<Districts> districts{get; set;}
         public Integer Total_Number_Of_Districts{get; set;}
     }
-    Integer Stdata ;
     public class Country{
         public String countryName{get; set;}
         public List<States> states{get; set;}
@@ -83,7 +82,6 @@ public with sharing class CountryStateDynamicMap {
                                                               countryName GROUP BY State_Name__r.Name];                
             wrapperOfState.Total_Number_Of_Districts = (Integer)listAggDistrictWithState[0].
 	    					       get('Total_Number_Of_Districts');
-            stdata =   wrapperOfState.Total_Number_Of_Districts ;
             for(String dist :mapCountryTillDistricts.get(countryName).get(stat)) {
                 Districts wrapperOfDistrict = new Districts();
                 wrapperOfDistrict.districtName = dist;    
