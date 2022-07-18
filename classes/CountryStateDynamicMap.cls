@@ -43,23 +43,7 @@ public with sharing class CountryStateDynamicMap {
                 }
             }
         }
-    }     
-    //JSON  wrapper classes
-    public List<Country> countryList{get; set;}
-    public class Districts {
-        public String districtName{get; set;}
-    }        
-    public class States{
-        public string stateName{get; set;}
-        public List<Districts> districts{get; set;}
-        public Integer Total_Number_Of_Districts{get; set;}
-    }
-    public class Country{
-        public String countryName{get; set;}
-        public List<States> states{get; set;}
-        public Integer Total_Number_Of_States{get; set;}
-        public Integer Total_Number_Of_Districts{get; set;}
-    }
+    } 
     //JSON DATA
     public void JSONOfCountry(String countryName) {
         Country wrapperOfCountry = new Country();
@@ -99,5 +83,21 @@ public with sharing class CountryStateDynamicMap {
             update countryData;
         } 
         System.debug('JSON DATA :' +stringOfJSON);  
+    }
+    //JSON  wrapper classes
+    public List<Country> countryList{get; set;}
+    public class Districts {
+        public String districtName{get; set;}
+    }        
+    public class States{
+        public string stateName{get; set;}
+        public List<Districts> districts{get; set;}
+        public Integer Total_Number_Of_Districts{get; set;}
+    }
+    public class Country{
+        public String countryName{get; set;}
+        public List<States> states{get; set;}
+        public Integer Total_Number_Of_States{get; set;}
+        public Integer Total_Number_Of_Districts{get; set;}
     }
 }
