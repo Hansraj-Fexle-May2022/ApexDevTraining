@@ -68,10 +68,10 @@ public with sharing class CountryStateDynamicMap {
         wrapperOfCountry.states = new List<States>();        
         List<AggregateResult> listAggState = [Select COUNT(Name) Total_Number_Of_States from State__c 
                                               Where Country_Name__r.Name LIKE :countryName Group By 
-					                          Country_Name__r.Name];  
+					      Country_Name__r.Name];  
         wrapperOfCountry.Total_Number_Of_States =  (Integer)listAggState[0].get('Total_Number_Of_States');
-        List<AggregateResult> listAggDistrict = [Select COUNT(Name)Total_Number_Of_Districts from District__c
-                                                 Where State_Name__r.Country_Name__r.Name LIKE :
+        List<AggregateResult> listAggDistrict = [Select COUNT(Name)Total_Number_Of_Districts from 
+						 District__c Where State_Name__r.Country_Name__r.Name LIKE :
                                                  countryName GROUP BY State_Name__r.Country_Name__r.Name] ;
         wrapperOfCountry.Total_Number_Of_Districts =  (Integer)listAggDistrict[0].get('Total_Number_Of_Districts');
         for(String stat :mapCountryTillDistricts.get(countryName).keyset()){
@@ -92,8 +92,8 @@ public with sharing class CountryStateDynamicMap {
             wrapperOfCountry.states.add(wrapperOfState);
         }
         String stringOfJSON = JSON.serialize(wrapperOfCountry);
-	    List<Country__c> countryData = [SELECT Id, Name, Country_JSON_Data__c, Total_Number_of_Districts__c,
-                                    	    Total_Number_of_States__c FROM Country__c WHERE Name = :countryName ];
+	List<Country__c> countryData = [SELECT Id, Name, Country_JSON_Data__c, Total_Number_of_Districts__c,
+                                       Total_Number_of_States__c FROM Country__c WHERE Name = :countryName ];
         if(!countryData.isEmpty()) {
             countryData[0].Country_Json_Data__c = stringOfJSON;
             countryData[0].Total_Number_of_States__c = wrapperOfCountry.Total_Number_Of_States;
