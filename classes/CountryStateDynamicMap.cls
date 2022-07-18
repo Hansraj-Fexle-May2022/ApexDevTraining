@@ -99,8 +99,7 @@ public with sharing class CountryStateDynamicMap {
             countryData[0].Total_Number_of_States__c = wrapperOfCountry.Total_Number_Of_States;
             countryData[0].Total_Number_of_Districts__c = wrapperOfCountry.Total_Number_Of_Districts;
             update countryData;
-        }
-            
+        } 
         System.debug('JSON DATA :' +stringOfJSON);  
     }
 }
