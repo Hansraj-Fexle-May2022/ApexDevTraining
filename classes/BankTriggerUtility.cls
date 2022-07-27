@@ -1,4 +1,22 @@
 public with sharing class BankTriggerUtility {
+    public static void  AddingPrefix(List<Account> acctountList){
+        for(Account bankAccountList : acctountList){
+            if(Trigger.isBefore){
+                if(bankAccountList.Account_Type__c == 'Saving Account'){
+                bankAccountList.AccountNumber = 'SA-' +  bankAccountList.AccountNumber ;
+                }
+                if(bankAccountList.Account_Type__c == 'Salary account'){
+                bankAccountList.AccountNumber = 'SalA-' +  bankAccountList.AccountNumber ;
+                }
+                if(bankAccountList.Account_Type__c == 'Current Account'){
+                bankAccountList.AccountNumber = 'CA-' +  bankAccountList.AccountNumber ;
+                }
+                if(bankAccountList.Account_Type__c == 'Fixed Deposit Account'){
+                bankAccountList.AccountNumber = 'FDA-' +  bankAccountList.AccountNumber ;
+                }
+            }
+        }
+    }
     public static void  BankEmailSend(List<Account> acctList) {
         List <Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
         for(Account account : acctList){
