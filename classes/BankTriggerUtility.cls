@@ -1,5 +1,5 @@
 public with sharing class BankTriggerUtility {
-    public static void  AddingPrefix(List<Account> acctountList){
+    public static void  addingPrefix(List<Account> acctountList){
         for(Account bankAccountList : acctountList){
             if(Trigger.isBefore){
                 if(bankAccountList.Account_Type__c == 'Saving Account'){
@@ -17,7 +17,7 @@ public with sharing class BankTriggerUtility {
             }
         }
     }
-    public static void  BankEmailSend(List<Account> acctList) {
+    public static void  bankEmailSend(List<Account> acctList) {
         List <Messaging.SingleEmailMessage> mails = new List<Messaging.SingleEmailMessage>();
         for(Account account : acctList){
             if(account.Account_Holder_Email__c != null){
