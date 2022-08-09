@@ -4,8 +4,8 @@ Created By :    Hansraj Jangid
 Created Date :  06-08-2022
 Revision Logs : V_1.0 - Created 								  
 **/
-public with sharing class  validateDuplicateEmailOnContact {
-    public static void duplicateEmail (List<Contact> newConList , Map<Id,Contact> oldContactMap ) {
+public with sharing class  ContactTriggerHelper {
+    public static void validateDuplicateEmailOnContact (List<Contact> newConList , Map<Id,Contact> oldContactMap ) {
         //creating new set for new email list
         Set<String> newEmailSet = new Set<String>();
          //creating new set for existing email list
