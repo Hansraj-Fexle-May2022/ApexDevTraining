@@ -7,7 +7,7 @@ Revision Logs : V_1.0 - Created
 trigger ContactTrigger on Contact(before insert ,before update) {
     if(Trigger.isBefore){
         if(Trigger.isUpdate ||Trigger.isInsert ){
-            ContactTriggerHelper.duplicateEmail(Trigger.New,Trigger.oldMap);
+             validateDuplicateEmailOnContact.duplicateEmail(Trigger.New,Trigger.oldMap);
         }
     }
 }
