@@ -6,8 +6,8 @@
 			            V_1.1 - Dev Name : HANS RAJ JANGID
 			            Date     : 17-08-2022
 **/
-trigger StateTrigger on State__c (after insert ,after delete) {
-    if(Trigger.isInsert || Trigger.isDelete ){
-        StateTriggerHelper.StateCountOnCountry(Trigger.New,Trigger.Old);
+trigger StateTrigger on State__c (after insert ,after delete , after update) {
+    if(Trigger.isInsert || Trigger.isDelete || Trigger.isUpdate){
+        StateTriggerHelper.StateCountOnCountry(Trigger.New,Trigger.oldMap);
     }
 }

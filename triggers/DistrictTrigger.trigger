@@ -6,8 +6,8 @@
 			            V_1.1 - Dev Name : HANS RAJ JANGID
 			            Date     : 17-08-2022
 **/
-trigger DistrictTrigger on District__c (after insert ,after delete) {
-    if(Trigger.isInsert || Trigger.isDelete ){
-        DistrictTriggerHelper.districtCountOnState(Trigger.New,Trigger.Old);
+trigger DistrictTrigger on District__c (after insert ,after delete ,after update) {
+    if(Trigger.isInsert || Trigger.isUpdate|| Trigger.isDelete){
+        DistrictTriggerHelper.districtCountOnState(Trigger.New,Trigger.oldMap);
     }
 }

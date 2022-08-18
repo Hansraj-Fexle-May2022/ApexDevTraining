@@ -17,16 +17,15 @@ public class DistrictTriggerHelper {
         public List<Districts> districts{get; set;}
     }
 
-    public static void districtCountOnState(List<District__c> newDisList, List <District__c> oldDisList) {
+    public static void districtCountOnState(List<District__c> newDistrictList, Map <id,District__c> oldDistrictMap) {
         List<integer> countDistrictCountry = new List<integer>();
         List<integer> listcountStateDistrict = new List<integer>();
         States wrapperOfState;
         Districts wrapperOfDistrict;
         //new sets for storing the State id
         Set<id> storeStateId = new Set<id>();
-        Set<id> storeNewStateId = new Set<id>();
         Set<id> storeOldStateId = new Set<id>();
-
+  
         //new sets for storing the Country id
         Set<id> storeCountryId = new Set<id>();
         
@@ -35,49 +34,60 @@ public class DistrictTriggerHelper {
         List<Country__c> totalDistrictsInCountry = new List<Country__c>();
 
         List<State__c> addState = new List<State__c>();
+        
+        List<State__c> addState2 = new List<State__c>();
         List<Country__c> addCountry = new List<Country__c>();
-        //insert and upadte Case
-        if(newDisList != null){
-            if(newDisList != null ){
-                for (District__c district : newDisList){
-                    storeStateId.add(district.State_Name__c);
-                    storeCountryId.add(district.Country__c );
-                }
+        
+         //for delete case
+        for( District__c newDistrict : (newDistrictList != null ? newDistrictList : oldDistrictMap.values())){
+            if(newDistrictList == null && oldDistrictMap != null){
+                    storeStateId.add(newDistrict.State_Name__c);
+                    //storeCountryId.add(newDistrict.Country__c );
             }
-            else if(newDisList != null && oldDisList!= null){
-                 for (District__c newDistrict : newDisList){
-                    for(District__c oldDistrict : oldDisList){
-        				if((newDistrict.State_Name__c != null) && (oldDisList == null || oldDistrict.State_Name__c != newDistrict.State_Name__c)) {                            
-                    		storeNewStateId.add(newDistrict.State_Name__c);
-                            storeOldStateId.add(oldDistrict.State_Name__c);		
-            			} 
-            		}
-        		} 
-                storeStateId.addAll(storeNewStateId);
-        		storeStateId.addAll(storeOldStateId);
+            //insert and upadte Case
+            else if(newDistrictList != null && oldDistrictMap == null) {
+                        storeStateId.add(newDistrict.State_Name__c);
+                         system.debug('storeStateId'+storeStateId);
+                        //storeCountryId.add(newDistrict.Country__c);
             }
-            
+            else if(newDistrictList != null && oldDistrictMap.get(newDistrict.Id).State_Name__c != newDistrict.State_Name__c){
+                  storeStateId.add(newDistrict.State_Name__c);
+              	  system.debug('storeStateId'+storeStateId);
+                  storeOldStateId.add(oldDistrictMap.get(newDistrict.Id).State_Name__c);
+                  //system.debug('storeStateId'+storeStateId);
+                
+            }
         }
         system.debug('storeStateId'+storeStateId);
         system.debug('storeCountryId'+storeCountryId);
-        //for delete case
-        if(newDisList == null && oldDisList != null){
-            for (District__c district : oldDisList){
-                storeStateId.add(district.State_Name__c);
-                storeCountryId.add(district.Country__c );
-            }
-        }
-        //system.debug('oldDisList' + oldDisList);
+       
+      
         //Aggrigating Count of District
 
-        List<AggregateResult> listAggDistrictState = [SELECT COUNT(id) cid ,State_Name__c sid FROM District__c WHERE State_Name__c =: storeStateId GROUP BY State_Name__c];
-        List<AggregateResult> listAggDistrictCountry = [SELECT COUNT(id) ctid ,Country__c Conid FROM District__c  WHERE Country__c =:     storeCountryId GROUP BY Country__c];
+        List<AggregateResult> listAggDistrictState = [SELECT COUNT(id) cid ,State_Name__c sid FROM District__c WHERE
+                                                      State_Name__c =: storeStateId GROUP BY State_Name__c];
+        
+        List<AggregateResult> listAggOldDistrictState = [SELECT COUNT(id) cid ,State_Name__c sid FROM District__c WHERE
+                                                      State_Name__c =: storeOldStateId GROUP BY State_Name__c];
+
+        List<AggregateResult> listAggDistrictCountry = [SELECT COUNT(id) ctid ,Country__c Conid FROM District__c  WHERE
+                                                        Country__c =:     storeCountryId GROUP BY Country__c];
        
         system.debug('listAggDistrictState' + listAggDistrictState);
         system.debug('listAggDistrictCountry' + listAggDistrictCountry);
 
         if(listAggDistrictState.size()>0){
             for(AggregateResult ar :listAggDistrictState){
+                Id stateId = (Id)ar.get('sid');
+                Integer countDistrict = (Integer)ar.get('cid');
+
+                State__c st = new State__c(Id = stateId);
+                st.Total_Number_of_Districts__c = countDistrict;
+                addState.add(st);
+            }
+        }
+        if(listAggOldDistrictState.size()>0){
+            for(AggregateResult ar :listAggOldDistrictState){
                 Id stateId = (Id)ar.get('sid');
                 Integer countDistrict = (Integer)ar.get('cid');
 
@@ -101,6 +111,9 @@ public class DistrictTriggerHelper {
         if(addState.size()>0){
             update addState;
         }
+        if(addState2.size()>0){
+            update addState2;
+        }
         if(addCountry.size()>0){
             update addCountry;
         }
@@ -109,7 +122,7 @@ public class DistrictTriggerHelper {
         for(AggregateResult agr : listAggDistrictCountry) {
             listcountStateDistrict.add((Integer)agr.get('ctid'));
         }
-        for(Country__c country : [Select Id, Name, Total_Number_of_Districts__c From Country__c Where Id In : storeCountryId]) {
+        for(Country__c country : [SELECT Id, Name, Total_Number_of_Districts__c FROM Country__c WHERE Id In : storeCountryId]) {
             country.Total_Number_of_Districts__c = listcountStateDistrict[b];
             b = b+1 ;
             totalDistrictsInCountry.add(country);

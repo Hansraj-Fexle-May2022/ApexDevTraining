@@ -20,47 +20,43 @@ public with sharing class StateTriggerHelper {
         public List<States> states{get; set;}
     }
 
-  
-    public static void StateCountOnCountry(List<State__c> newStateList, List <State__c> oldStateList) {
+    public static void StateCountOnCountry(List<State__c> newStateList, Map<Id,State__c> oldStateMap) {
         Country wrapperOfCountry;
         States wrapperOfState;
        
         List<Country__c> totalStateInCountry = new List<Country__c>();
 
         Set<id> storeCountryId = new Set<id>();
-        Set<id> storeNewCountryId = new Set<id>();
         Set<id> storeOldCountryId = new Set<id>();
+        Set<id> storeNewCountryId = new Set<id>();
+        Set<id> storeOldCountryId2 = new Set<id>();
 
         List<Integer> lisCountCountryState = new List<Integer>();
+
         List<Country__c> addCountry = new List<Country__c>();
-        if(newStateList != null){
-            if(newStateList != null){
-                for (State__c state : newStateList){
-                    storeCountryId.add(state.Country_Name__c );
-                }
+        List<Country__c> addCountry2 = new List<Country__c>();
+        
+         for( State__c newState : (newStateList != null ? newStateList : oldStateMap.values())){
+            //Delete Case
+            if(newStateList == null && oldStateMap != null){
+                    storeCountryId.add(newState.Country_Name__c);
             }
-            else if(newStateList != null && oldStateList!= null){
-                for (State__c newState : newStateList){
-                    for(State__c oldState : oldStateList){
-                        if((newState.Country_Name__c != null) && (oldStateList == null || oldState.Country_Name__c != newState.Country_Name__c)) {                            
-                    		storeNewCountryId.add(newState.Country_Name__c);
-                            storeOldCountryId.add(oldState.Country_Name__c);               		
-            			} 
-                    }
-                }
-                storeCountryId.addAll(storeNewCountryId);
-                storeCountryId.addAll(storeOldCountryId);
+            //insert Case
+            else if(newStateList != null && oldStateMap == null) {
+                        storeCountryId.add(newState.Country_Name__c);
+                         system.debug('storeCountryId'+storeCountryId);
             }
-            for (State__c state : newStateList){
-                storeCountryId.add(state.Country_Name__c );
+            //upadte Case
+            else if(newStateList != null && oldStateMap.get(newState.Id).Country_Name__c != newState.Country_Name__c){
+                  storeCountryId.add(newState.Country_Name__c);
+              	  system.debug('storeCountryId'+storeCountryId);
+                  storeOldCountryId.add(oldStateMap.get(newState.Id).Country_Name__c);
             }
         }
-        if(oldStateList!= null){
-            for (State__c state : oldStateList){
-                storeCountryId.add(state.Country_Name__c );
-            }
-        }
-        List<AggregateResult> listAggStateCountry = [SELECT COUNT(id) ctid ,Country_Name__c Conid FROM State__c  WHERE Country_Name__c =: storeCountryId GROUP BY Country_Name__c];
+        List<AggregateResult> listAggStateCountry = [SELECT COUNT(id) ctid ,Country_Name__c Conid FROM State__c  WHERE
+                                                     Country_Name__c =: storeCountryId GROUP BY Country_Name__c];
+        List<AggregateResult> listAggOldStateCountry = [SELECT COUNT(id) ctid ,Country_Name__c Conid FROM State__c  WHERE
+                                                        Country_Name__c =: storeOldCountryId GROUP BY Country_Name__c];
         if(listAggStateCountry.size()>0){
             for(AggregateResult ar :listAggStateCountry){
                 Id countryId = (Id)ar.get('Conid');
@@ -71,18 +67,32 @@ public with sharing class StateTriggerHelper {
                 addCountry.add(con);
             }
         }
+        if(listAggOldStateCountry.size()>0){
+            for(AggregateResult ar :listAggOldStateCountry){
+                Id countryId = (Id)ar.get('Conid');
+                Integer countState = (Integer)ar.get('ctid');
+
+                Country__c con = new Country__c(Id = countryId);
+                con.Total_Number_of_States__c = countState;
+                addCountry2.add(con);
+            }
+        }
+        if(addCountry2.size()>0){
+            update addCountry2;
+        }
         if(addCountry.size()>0){
             update addCountry;
         }
-
 
         //Json population on country
         for(AggregateResult agr : listAggStateCountry) {
             lisCountCountryState.add((Integer)agr.get('ctid'));
         }
-		List<State__c> stateList=  [SELECT Id, Name, Total_Number_of_Districts__c FROM State__c WHERE Country_Name__c In :storeCountryId];
+		List<State__c> stateList=  [SELECT Id, Name, Total_Number_of_Districts__c FROM State__c WHERE 
+                                    Country_Name__c In :storeCountryId];
         Integer a = 0;
-        for(Country__c country : [SELECT Id, Name, Total_Number_of_States__c, Total_Number_of_Districts__c FROM Country__c WHERE Id In :storeCountryId]) {
+        for(Country__c country : [SELECT Id, Name, Total_Number_of_States__c, Total_Number_of_Districts__c
+                                  FROM Country__c WHERE Id In :storeCountryId]) {
             country.Total_Number_of_States__c = lisCountCountryState[a];
             a=a+1 ; 
             wrapperOfCountry = new Country();
