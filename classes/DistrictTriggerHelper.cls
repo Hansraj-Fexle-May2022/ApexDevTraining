@@ -35,14 +35,15 @@ public class DistrictTriggerHelper {
          //for update,delete and insert case
          for( District__c newDistrict : (newDistrictList != null ? newDistrictList : oldDistrictMap.values())){
             if(newDistrictList == null ||oldDistrictMap == null || oldDistrictMap.get(newDistrict.Id).State_Name__c 
-            != newDistrict.State_Name__c ){
+               != newDistrict.State_Name__c ){
                 setStateId.add(newDistrict.State_Name__c);
-                if(oldDistrictMap != null && oldDistrictMap.get(newDistrict.Id).State_Name__c != newDistrict.State_Name__c  ){
+                if(oldDistrictMap != null && oldDistrictMap.get(newDistrict.Id).State_Name__c 
+		   != newDistrict.State_Name__c  ){
                     setStateId.add(oldDistrictMap.get(newDistrict.Id).State_Name__c);
                 }  
             }
         } 
-        //Aggrigating Count of District
+        //Aggrigating Count of District  
         List<AggregateResult> listAggDistrictState = [SELECT COUNT(id) countId ,State_Name__c sid FROM District__c WHERE
                                                       State_Name__c =: setStateId GROUP BY State_Name__c];
         List<AggregateResult> listAggDistrictCountry = [SELECT COUNT(id) ctid ,Country__c Conid FROM District__c  WHERE
