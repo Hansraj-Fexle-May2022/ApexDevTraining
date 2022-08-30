@@ -1,3 +1,11 @@
+/**
+	Description 	:       This is the xml file For the LWC Calcultor
+	Created BY 	:       HANS RAJ JANGID
+	Created Date 	:  	29-08-2022
+	Revision Logs 	: 	V_1.0 - Created 
+			        V_1.1 - Dev Name : HANS RAJ JANGID
+								Date 	 : 30-08-2022
+**/
 <?xml version="1.0"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
 	<apiVersion>54.0</apiVersion>
