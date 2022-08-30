@@ -1,11 +1,3 @@
-/**
-	Description 	:   This is the JavaScript Code For the Calcultor
-	Created BY 		:   HANS RAJ JANGID
-	Created Date 	:  	29-08-2022
-	Revision Logs 	: 	V_1.0 - Created 
-						V_1.1 - Dev Name : HANS RAJ JANGID
-								Date 	 : 30-08-2022
-**/
 import { LightningElement, track } from 'lwc';
 export default class SimpleCalculator extends LightningElement {
     @track result;
