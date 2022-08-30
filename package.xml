@@ -1,13 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>AlphabetAPatternProgram</members>
-	<members>DowntriangleProgram</members>
-	<members>LeftPacalTrianglePatternProgram</members>
-	<members>LeftTrianglePascalPatternProgram</members>
-	<members>Patternclass</members>
-	<members>RightPascalTriangle</members>
-	<name>ApexClass</name>
-    </types>
-    <version>53.0</version>
+	<types>
+		<members>ContactTriggerHelperForStatus</members>
+		<members>DistrictTriggerHelper</members>
+		<members>StateTriggerHelper</members>
+		<name>ApexClass</name>
+	</types>
+	<types>
+		<members>ContactTrigger1</members>
+		<members>DistrictTrigger</members>
+		<members>StateTrigger</members>
+		<name>ApexTrigger</name>
+	</types>
+	<types>
+		<members>Account.Property__c</members>
+		<members>Account.Status__c</members>
+		<members>Contact.Status__c</members>
+		<members>District__c.Country__c</members>
+		<members>Property__c.Status__c</members>
+		<name>CustomField</name>
+	</types>
+	<types>
+		<members>Country__c</members>
+		<members>District__c</members>
+		<members>Property__c</members>
+		<members>State__c</members>
+		<name>CustomObject</name>
+	</types>
+	<version>53.0</version>
 </Package>
