@@ -11,7 +11,6 @@ public with sharing class ContactTriggerHelperForStatus {
     public static void checkStatus( List<Contact> newList) {
         //new lists for Account field and related field
         List<Account>acountList = [SELECT Id, Status__c, Property__r.Status__c FROM Account];
-        List<Account>acountList2 = [SELECT Id, Status__c, Property__r.Status__c FROM Account];
         for(Contact contact : newList) {
             //checking for contact field
             if(contact.Status__c == null) {
@@ -29,7 +28,7 @@ public with sharing class ContactTriggerHelperForStatus {
                 }
             }
             if(contact.Status__c != null) {
-                for(Account account : acountList2) {
+                for(Account account : acountList) {
                     if(account.Id  == contact.AccountId){
                         //checking for account field
                         if(account.Status__c == null) {
